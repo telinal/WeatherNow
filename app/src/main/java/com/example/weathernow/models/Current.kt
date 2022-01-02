@@ -7,13 +7,15 @@ data class Current(
     val precip: Int,
     val pressure: Int,
     val temperature: Int,
+    val weather_icons: List<String>,
     val weather_descriptions: List<String>,
     val wind_speed: Int
-) {
-    fun getIcon(): Int{
-        return when(weather_descriptions[0]){
-            "Haze" -> R.drawable.ic_launcher_background
-            else -> R.drawable.ic_launcher_foreground
-        }
-    }
-}
+)
+// {
+//    fun getIcon(): Int{
+//        return when(weather_descriptions[0]){
+//            "Haze" -> R.drawable.ic_launcher_background
+//            else -> R.drawable.ic_launcher_foreground
+//        }
+//    }
+//}

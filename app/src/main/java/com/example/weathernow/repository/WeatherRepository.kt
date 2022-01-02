@@ -5,14 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.weathernow.api.WeatherAPI
 import com.example.weathernow.models.Current
+import com.example.weathernow.models.WeatherResponse
 import com.example.weathernow.utils.NetworkUtils
 
 class WeatherRepository(
     private val weatherAPI: WeatherAPI,
     private val applicationContext: Context
     ) {
-    private val weatherLiveData = MutableLiveData<Response<Current>>()
-    val weatherData: LiveData<Response<Current>>
+    private val weatherLiveData = MutableLiveData<Response<WeatherResponse>>()
+    val weatherData: LiveData<Response<WeatherResponse>>
     get() = weatherLiveData
 
     suspend fun getCurrentWeather(query: String) {

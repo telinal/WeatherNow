@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitHelper {
 
-    val BASE_URL= "http://api.weatherstack.com/"
+    val BASE_URL= "https://api.weatherstack.com/"
     val OKHTTP= "okhttp"
     var okHttpClient = OkHttpClient.Builder()
         .addInterceptor {
