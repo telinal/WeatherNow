@@ -12,7 +12,7 @@ interface WeatherAPI {
 
     @GET("/current")
     suspend fun getCurrentWeather(
-        @Header("access_key") apiKey:String = BuildConfig.API_KEY,
+        @Query("access_key") apiKey:String = BuildConfig.API_KEY,
         @Query("query") query: String
     ) : Response<WeatherResponse>
 }
