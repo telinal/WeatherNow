@@ -6,7 +6,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient">
 
 
         <ProgressBar
@@ -32,41 +33,64 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchLocation"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:inputType="text"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weatherLocation"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@+id/searchLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/searchLocation" />
+
         <ImageView
             android:id="@+id/weatherImage"
             android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="15dp"
-            tools:src="@drawable/ic_launcher_background"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/weatherLocation" />
+            app:layout_constraintTop_toBottomOf="@+id/searchLocation"
+            tools:src="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/weatherName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            tools:text="Haze"
-            android:textSize="15dp"
+            android:layout_marginTop="20dp"
             android:textColor="@color/black"
+            android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/weatherImage" />
+            app:layout_constraintTop_toBottomOf="@+id/weatherImage"
+            tools:text="Haze" />
 
         <TextView
             android:id="@+id/weatherPercent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            tools:text="24°C"
+            android:layout_marginTop="30dp"
             android:textColor="@color/black"
             android:textSize="40dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/weatherName" />
+            app:layout_constraintTop_toBottomOf="@+id/weatherName"
+            tools:text="24°C" />
 
         <TextView
             android:id="@+id/pressureValue"
@@ -85,28 +109,28 @@
             android:id="@+id/windValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="7 kmph \n Wimd"
-            android:textSize="15dp"
             android:textColor="@color/black"
+            android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/precipValue"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/precipValue" />
+            app:layout_constraintTop_toTopOf="@+id/precipValue"
+            tools:text="7 kmph \n Wimd" />
 
         <TextView
             android:id="@+id/precipValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            tools:text="0 mm \n Precip"
+            android:layout_marginTop="36dp"
             android:textColor="@color/black"
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/pressureValue"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/windValue"
-            app:layout_constraintTop_toBottomOf="@+id/weatherPercent" />
+            app:layout_constraintTop_toBottomOf="@+id/weatherPercent"
+            tools:text="0 mm \n Precip" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

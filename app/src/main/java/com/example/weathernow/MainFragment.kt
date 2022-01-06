@@ -26,6 +26,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.weathernow.api.RetrofitHelper
 import com.example.weathernow.api.WeatherAPI
@@ -47,8 +48,6 @@ class MainFragment : Fragment() {
     lateinit var binding: FragmentMainBinding
     lateinit var mainViewModel: MainViewModel
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    lateinit var locationRequest: LocationRequest
-    private var currentLocation: Location? = null
     var PERMISSION_ID = 1080
 
     companion object {
@@ -62,13 +61,7 @@ class MainFragment : Fragment() {
             LocationServices.getFusedLocationProviderClient(requireActivity())
 
         Log.d("MainFragment:", checkPermission().toString())
-//            Log.d("MainFragment:",isLocationEnabled().toString())
         getLastLocation()
-//        if (checkPermission()){
-//
-//        } else {
-//            requestPermission()
-//        }
 
     }
 
@@ -112,6 +105,7 @@ class MainFragment : Fragment() {
 
     private fun getLastLocation() {
         if (checkPermission()) {
+            if (isLocationEnabled()) {
             fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     if (task.result == null) {
@@ -119,21 +113,16 @@ class MainFragment : Fragment() {
                     } else {
                         fetchWeather(task.result.latitude, task.result.longitude)
                     }
-//                        Log.d(TAG, "lat  => ${task.result.latitude} | long => ${task.result.longitude} ")
+
 
                 } else {
                     Toast.makeText(requireContext(), "Something Went wrong", Toast.LENGTH_SHORT)
                         .show()
                 }
 
-
-////                    var location:Location? = task.result
-//                    if(location == null){
-////                        NewLocationData()
-//                    }else{
-//                        Log.d("Debug:" ,"Your Location:"+ location.longitude)
-//                        textView.text = "You Current Location is : Long: "+ location.longitude + " , Lat: " + location.latitude + "\n" + getCityName(location.latitude,location.longitude)
-//                    }
+            }
+            } else {
+                findNavController().navigate(MainFragmentDirections.actionMainFragmentToErrorFragment())
             }
         } else {
             requestPermission()
@@ -174,7 +163,6 @@ class MainFragment : Fragment() {
 
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-//            binding.weatherLocation.text = locationResult.lastLocation
             fetchWeather(
                 locationResult.lastLocation.latitude,
                 locationResult.lastLocation.longitude
@@ -183,16 +171,6 @@ class MainFragment : Fragment() {
         }
     }
 
-//    private val locationCallback = object : LocationCallback() {
-//        override fun onLocationResult(locationResult: LocationResult?) {
-//            super.onLocationResult(locationResult)
-//            locationResult?.lastLocation?.let {
-//                currentLocation = locationByGps
-//            } ?: {
-//                Log.d(TAG, "Location information isn't available.")
-//            }
-//        }
-//    }
 
 
     private fun getCityName(lat: Double, long: Double): String {
@@ -244,7 +222,6 @@ class MainFragment : Fragment() {
             }
         }
 
-//        mainViewModel.getCurrentWeather("guwahati")
     }
 
     private fun bindData(data: WeatherResponse?) {
