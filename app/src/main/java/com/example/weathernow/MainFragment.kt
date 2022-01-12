@@ -36,6 +36,7 @@ import com.example.weathernow.models.Location
 import com.example.weathernow.models.WeatherResponse
 import com.example.weathernow.repository.Response
 import com.example.weathernow.repository.WeatherRepository
+import com.example.weathernow.utils.LocationCheckUtils
 import com.example.weathernow.viewmodel.MainViewModel
 import com.example.weathernow.viewmodel.MainViewModelFactory
 import com.google.android.gms.location.*
@@ -95,17 +96,11 @@ class MainFragment : Fragment() {
     }
 
 
-    fun isLocationEnabled(): Boolean {
-        var locationManager =
-            requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER
-        )
-    }
+
 
     private fun getLastLocation() {
         if (checkPermission()) {
-            if (isLocationEnabled()) {
+            if (LocationCheckUtils.isLocationEnabled(requireActivity())) {
             fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     if (task.result == null) {
@@ -210,13 +205,22 @@ class MainFragment : Fragment() {
             when (it) {
                 is Response.Error -> {
                     binding.progressBar.visibility = GONE
+                    binding.windCardview.visibility = GONE
+                    binding.precipCardview.visibility = GONE
+                    binding.pressureCardview.visibility = GONE
                     Toast.makeText(activity, it.errorMessage.toString(), Toast.LENGTH_SHORT).show()
                 }
                 is Response.Loading -> {
                     binding.progressBar.visibility = VISIBLE
+                    binding.windCardview.visibility = GONE
+                    binding.precipCardview.visibility = GONE
+                    binding.pressureCardview.visibility = GONE
                 }
                 is Response.Success -> {
                     binding.progressBar.visibility = GONE
+                    binding.windCardview.visibility = VISIBLE
+                    binding.precipCardview.visibility = VISIBLE
+                    binding.pressureCardview.visibility = VISIBLE
                     bindData(it.data)
                 }
             }
@@ -227,7 +231,7 @@ class MainFragment : Fragment() {
     private fun bindData(data: WeatherResponse?) {
         with(binding) {
             weatherLocation.text = data?.request?.query
-            Glide.with(requireActivity()).load(data!!.current.weather_icons[0]).into(weatherImage)
+            Glide.with(requireActivity()).load(data!!.current.getIcon()).into(weatherImage)
             weatherName.text = data?.current!!.weather_descriptions[0]
             weatherPercent.text = ("${data?.current?.temperature}°C")
             pressureValue.text = ("${data.current.pressure} \n Pressure")

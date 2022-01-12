@@ -6,14 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.example.weathernow.databinding.FragmentErrorBinding
+import com.example.weathernow.repository.Response
+import com.example.weathernow.utils.LocationCheckUtils
+import com.example.weathernow.viewmodel.MainViewModel
 
 class ErrorFragment : Fragment() {
 
     lateinit var binding: FragmentErrorBinding
-    lateinit var lotties: LottieAnimationView
+    lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +49,9 @@ class ErrorFragment : Fragment() {
         })
 
         binding.retryBtn.setOnClickListener() {
-            findNavController().navigateUp()
+            if (LocationCheckUtils.isLocationEnabled(requireActivity())) {
+                findNavController().navigateUp()
+            }
         }
     }
 

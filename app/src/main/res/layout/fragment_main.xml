@@ -6,6 +6,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:paddingHorizontal="20dp"
         android:layout_height="match_parent"
         android:background="@drawable/bg_gradient">
 
@@ -27,31 +28,12 @@
             android:layout_marginTop="15dp"
             tools:text="Guwahati, India"
             android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchLocation"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="25dp"
-            android:inputType="text"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/weatherLocation"/>
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@+id/searchLocation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/searchLocation" />
 
         <ImageView
             android:id="@+id/weatherImage"
@@ -61,7 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchLocation"
+            app:layout_constraintTop_toBottomOf="@+id/weatherLocation"
             tools:src="@drawable/ic_launcher_background" />
 
         <TextView
@@ -69,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="40dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -92,45 +74,80 @@
             app:layout_constraintTop_toBottomOf="@+id/weatherName"
             tools:text="24°C" />
 
-        <TextView
-            android:id="@+id/pressureValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            tools:text="1016 mb \n Pressure"
-            android:textSize="15dp"
-            android:textStyle="bold"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/windCardview"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginVertical="30dp"
+            style="@style/CustomCardView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/precipValue"
-            app:layout_constraintTop_toTopOf="@+id/precipValue" />
-
-        <TextView
-            android:id="@+id/windValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/precipValue"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/precipValue"
-            tools:text="7 kmph \n Wimd" />
+            app:layout_constraintTop_toBottomOf="@+id/weatherPercent">
 
-        <TextView
-            android:id="@+id/precipValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/pressureValue"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/windValue"
-            app:layout_constraintTop_toBottomOf="@+id/weatherPercent"
-            tools:text="0 mm \n Precip" />
+            <TextView
+                android:id="@+id/windValue"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/CustomstyleText"
+                tools:text="Wind \n7 kmph" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wind"
+                style="@style/CustomstyleImage"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/precipCardview"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginVertical="30dp"
+            style="@style/CustomCardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/windCardview">
+
+            <TextView
+                android:id="@+id/precipValue"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/CustomstyleText"
+                tools:text="Precip \n 0 mm" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/precip"
+                style="@style/CustomstyleImage"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pressureCardview"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginVertical="30dp"
+            style="@style/CustomCardView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/precipCardview">
+
+            <TextView
+                android:id="@+id/pressureValue"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/CustomstyleText"
+                tools:text="Pressure \n 1016 mb"/>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/pressure"
+                style="@style/CustomstyleImage"/>
+
+        </androidx.cardview.widget.CardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
